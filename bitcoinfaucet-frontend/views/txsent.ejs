@@ -1,0 +1,43 @@
+<script type="text/javascript">
+  setTimeout(function sunrise () {
+    document.getElementsByClassName('header')[0].style.backgroundColor = '#118798';
+  }, 0);
+
+  setTimeout(function sunrise () {
+    document.getElementsByClassName('sendform')[0].style.backgroundColor = '#118798';
+  }, 0);
+
+</script>
+
+
+<div class="default-page">
+  <div class="header">
+    <h1 id="main-title" class="container"><%= __('A Bitcoin Cash Testnet Faucet.') %></h1>
+    <h3 class="container">You're can get here cash test coins</h3>
+  </div>
+  <h1 class="container">Transaction sent</h1>
+  <div class="main container clearfix">
+    <div >
+
+
+
+      <div style="text-align: left ; display: block;" class="sendform ">
+        <h2 class="transaction" >To: <div class="code" style="display: inline-block; font-size:0.6em;"><%- address%></div></h2>
+
+
+        <h2 class="transaction" >Amount: <div class="code" style="display: inline-block;"><%- amount%></div> Satoshi</h2>
+
+
+        <h2 class="transaction" >Transaction hash: </h2>
+        <div class="code"><%- txhash%></div>
+        <h2 class="transaction" >Raw Transaction: </h2>
+        <div class="code"><%- rawtx%></div>
+        <div class="container" id="raw-transaction">
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

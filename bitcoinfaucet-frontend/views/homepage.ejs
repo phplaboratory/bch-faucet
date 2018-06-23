@@ -1,0 +1,94 @@
+
+<script type="text/javascript">
+  setTimeout(function sunrise () {
+    document.getElementsByClassName('header')[0].style.backgroundColor = '#118798';
+  }, 0);
+
+  setTimeout(function sunrise () {
+    document.getElementsByClassName('sendform')[0].style.backgroundColor = '#118798';
+  }, 0);
+
+</script>
+
+<!-- Default home page -->
+
+
+<div class="default-page">
+  <div class="header">
+    <h1 id="main-title" class="container"><%= __('A Bitcoin Cash Testnet Faucet.') %></h1>
+    <h3 class="container">You're can get here cash test coins</h3>
+  </div>
+  <div class="main container clearfix">
+    <div style="text-align: left ; display: inline-block;" class="sendform " id="sendform" name="sendform">
+
+      <form action="/transaction/send" method="POST" id="mainform" >
+        <div style="padding-left: 20px; padding-top: 20px; "> <label for="address">You Bitcoin Cash testnet address:  </label></div>
+        <div style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px; "> <input type="text" size="36" name="address" required style="font-size: 0.9em;"/> <br />
+          <label for="address" style="color: rgb(212, 65, 47);" generated="true" class="error"></label>
+        </div>
+        <div class="example" style="padding-left: 20px;">[ ex. mvzyuhYhuqCD6tLJTj74WehruX7omAvQQW ]</div>
+
+        <div style="text-align: left; display: block; margin-top: 20px; padding-left: 20px;">
+          <div class="g-recaptcha" data-sitekey="6LfO5isUAAAAAKE08N8DfF9MEwjin4mvTSREcHZd" style="display: inline-block;" data-callback="recaptchaCallback"></div>
+          <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha"><br />
+          <label for="hiddenRecaptcha" style="color: rgb(212, 65, 47);" generated="true" class="error"></label>
+        </div>
+
+        <div style="padding-left: 30px; padding-top: 30px;">
+          <ul>
+            <li> <input type="radio" name="amount" value="100000" checked >  0.001 tBCC</li>
+            <li> <input type="radio" name="amount" value="300000" >  0.003 tBCC</li>
+            <li> <input type="radio" name="amount" value="500000" >  0.005 tBCC</li>
+          </ul>
+        </div>
+
+
+        <div style="text-align: right"><input type="submit" class="submit_cash" value="Get Test Cash"></div>
+      </form>
+
+      <script>
+
+        function recaptchaCallback() {
+          $('#hiddenRecaptcha').valid();
+        };
+
+        function recaptchaExpired() {
+          var $button = jQuery(".submit_cash");
+          jQuery("#hiddenRecaptcha").val("");
+
+          if (jQuery("#sendform").valid()) {
+            $button.attr("disabled", false);
+          }
+          else {
+            $button.attr("disabled", "disabled");
+          }
+        }
+
+        $( document ).ready(function() {
+          var bitcore = require('bitcore-lib');
+
+          $.validator.addMethod("bitcoinTestNetAddress", function (value,element) {
+              return  bitcore.Address.isValid(value,bitcore.Networks.testnet ) ;
+            },
+            "Bitcoin Cash testnet address is invalid");
+
+          $('#mainform').validate({
+            ignore: ".ignore",
+            rules:{
+            'address': 'bitcoinTestNetAddress',
+            'hiddenRecaptcha': {
+              required: function () {
+                if (grecaptcha.getResponse() == '') {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+            }
+          }});
+        });
+      </script>
+
+    </div>
+  </div>
+</div>

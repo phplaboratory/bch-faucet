@@ -1,0 +1,85 @@
+var request = require('request');
+
+/*
+
+ 31d512707d78c1bddbe8467df30a111206f166503e1d794a7937272f31a23f9d
+
+ mhxxMjbQJjfhwQJmDe54rioGNitJDUthTv L4wGx5g3ciSaKZPmiPC7nYw67WhJKz1S33T5xn4AKearrWk6sg6x
+ n2FMwPwAmFeKbLbnV3WCwQK3HUYSFE8YUh L4AHcLfmaKhfmrnbUW7d4YDNsUDqX2sL8i2wERPXsYu14qnc3uLM
+ mq1YWD4FiYqvuRmrNCKdeC7xG6nqgdQR3D KzZi3LcGS5AfJfXBD1Dm6frviqE6wDWa2WQwwbR1MX14abtku8Zr
+
+ e445f7616acbeaa284085adac1ebd30b1108c334f7bcf7a5db11dd8ed506c700
+ n3wYkZrDNQ7sp9o9u64BSzZBZPESGn4F6T KysUNVmDFWPdQ584XroiiUpxbovs4inkmWehk4yEjYU5skhBwWVu
+ muYMiE2BKgFungvYNXtqwmf3XBEdFFkEtu L2Qt8Vegp6GPCaYFPiMYpJhbt7AXAmBXu1m26oGuKxkecrWYzW56
+ miHEpfdZgXVmE1ixZUdB9wtr5xnc4nJVg9 Kxtj8AM7riQRw7hqP3287hinktrHJdqZJAvVWpht1anPGvbrqdwC
+
+ f53ac35020af8302d60e85eebc18a9d9783e310a88013f959b7ab773fb41afd5
+ mp9w8FAwZ4u21gJhwat8rR2TYbaWPga8zY L1vyh7jxiPTUu3JyWaaPbXyYa8zVXVGg5rshi6u2Nantb2a44Q74
+ mknfGCUhtLHHd26Z6eWpdWoT9QCB7Akc1W KwgbgEbpTYSoqYx16baRZkYRTC2drakraWu5KN4aCyJG6R7TDoqH
+ muMgQUD8auaHXM3iF1UGLm51h9z4Nnf3yB KyWJj4MykxrmLdoSbc44ydb2SJg6iB6384Mp4tcWbVN7MQYuVkiu
+
+ 80b936dd24ec744081e8a77167cba12dd337acefd5585957a36c83ea956347ba
+ mqXybqeV1JwjxN56aN5zSjodXKBs9zjMQW KwRdLaiNxZGiLCBPghhFAZk1Pv8Kery27ffDQExWWjEQU1oMwEAg
+ mvquAUfRDN5zTNW8fFkZFLNq4veComhLhs KzevYUDGVTQGTmYTv69arj76BDcYAWzjJfhWfgfFw4y3ptWgGSqr
+ mmd73P7HAdLfYBuadNtFPb9aZxeY711NK7 L3VwP8txyY5dy4fjGqmNzFd9bEUzSk4HKUYG9S78kQgzE4t6FAmP
+
+
+ 0f8a405d118926f524f5eaf7fb56062af9c9cebec6a4fb62744f14120bb1b161
+ mkwj5LVMTctG8LJBDXvQ9Qn25oK2SzFCR7 L28QxjcFmq4SVu3QegtbqiZupMwBweREnpZzkkRF5q7Kd2cGxaZk
+ mpM1pWPr8w6N2CN2YWBCNctkR7jSKcL1oo KzjR1ZeZpaGvzMVLXKNQdGd84EkX9mTJdBQS3N3dibc4m8jhdKhV
+ mw7sJThiRUhtBK6iDSToAJs4d9DF5x9s4n L4Q8CmAzHGsNik7cmHVkMfw3yA4ax1LoG8vsWL2NBEMiLHPDxmW8
+ mmo76d2oruFa2oWL3rfc9RgmidaU5VJHT6 KwdnACNNwiyeFeXHAGxdYsvMK1x6yBNNXfAWD7o4gPcbWjb5WoH4
+ n2NoPT8HSPnB6Nmf7Caj6afRoekgXkfZNP L3B3zRYg6x4fYJfopQUA9Kp9z4xVherpb3WwAKFZDyTiMotF6UbT
+ n2n29gMiijjN4wvZLcsMgvZoG1Pi9jycnp KzoHbMbhYhKcsigXy8Y9acBojeNNwMETao1fyqT28VMBfeR55Y1i
+ mjpYA8fzxSqSFcu5wDXof8hYxBJJxx3ECC L4vxcowrDhf4UChGRb1oP1UGFAn14tmHttoBnoZnefrokLAxQcNF
+ muPe2yWzJyG24N8ST2pHPgvrn9h3X7AaaX L489PPfH9Q9C8cbGoTtEyoBhKpBX2SvBHXAHTiWEze27xmVFzp9j
+ myofK8GELG7gB8PN1aCB3B77AC35ffod7e KxR2uitFWKhUCU2ZT3uH11i138Zazyr3JF8zrx99FghYa3rf8ZCF
+ mhK9tzZFjmiycrpaZvwGVL5qR7gaUssjaE L419RiLvoMfkvb41AUHsnPaCpojGDFE2ERC8uovoQ1449gBP4rjy
+ myLS81dQtPajpRr1AqgaCMaLTMpXDb9ASo KxauGxDPkzePKS2CcEzjLBV4sA9JbG2Kv7cDh26EFRGxcNxP8K7R
+ miyaHGLYComs6QegEKUbehLmPWNv6PoAJS L3oUfbUuUJyMhzBmByoitre8bkJCPM8DYBQqSMAt3rgcFNZDcQuF
+ n1ahcoRwZ6WnGoevBFHYaYhMA9544LizX3 KzRiTPsQkgiZoFvrfJ9vFoRKhrfJ91B2DgPgTJJJD7F1HrTqiHh3
+ mjownD1sw9xTb8cpzhwyKKUoqb7jXKGv8J L4yqbWEUaMSj3qtiq2ndXg1jCMUZAYx5ywWLcqDiV8hCohnnKNcX
+ mnCHgSWkQzbMQAZiTjmuMCsGHtLR6nHmey KyuK6dvRjUy9KKiMHax5mFqgpkm8KNzyKLbmRRwJHf4BNhe6Y9KW
+ mfpzMyep1poh5arGFrhVFCfAc8J1Je7PBm KzrZBdoMKEMYV7Jhtxbf4y7te1VhQbpa7FxeErfpHXPfu5xp3KSA
+ mxeMkY3vyrdnDAV3eV9Qqs1NsaQqNfhoP6 Kx8TVEqzdQtRbXnJ5atvn5VcNvBw17AzPgZ97tmk8a6aB4WX1ZXi
+ mwwzFJUj4VPFLhCkFn2nYs71qNZgg1ydZj L2Qi7tLsoVanPPzmHuQjoSyoAoTDp9Ji9FXVzuyfZhhpNXVd8gLu
+ muBcXAEMD4MBa8ZJRBYTAQx5WrYn5FTJem Kz5GosSL7QwzHw4zd7L7Z8Vybp74jwsgkcbdTZhKELNFBvnxVNHm
+ mxiA5ethZpyo9sHBf9no3gpJZx1qRXGPyk KyL3JPLeVFiDDPsi3AXvkPV88qr5Cph9YFkKJWtxRaxZmRfTGw7R
+
+ 7e6436fbd7a0a201bc83ce5a3b9d9edad0d38b1757fc978d8c631758a0414022
+ myCbHjdoycpACfHbGxzAU15B8EgGeSXexu Ky9sZoVQcDMKEPMm3CbhRhJZMF4qtgVviu7h8MaYLnNkcYmUPSwH
+ msmqFD1NdFEppk7qjAPYt5HGbCopS6Ge6X Kyi9sjjxU2QaCwNMeHxZa1QMQwcGxeSK9deuv2EjovP1n4rH7zXt
+
+
+ */
+
+
+
+
+// Configure the request
+var options = {
+    url: 'http://localhost:1337/api/v1/transaction',
+    method: 'POST',
+    json: {
+        "inputHash": "c77314a5dbd6e4f325933a9de7a0b5b333972bdb5cab9629488e9ea3d34632c",
+        "output":0,
+        "privateKey":"L5BHQGVLmyfYWf92qNpTxBN893dZu4ropusK42GqqHfUCCXkpFyg",
+        "sum":0.01,
+        "spent":false
+    }
+}
+
+
+
+// Start the request
+request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(body)
+
+    } else {
+        console.log(response.statusCode,error )
+    }
+})
+
+
